@@ -1,4 +1,3 @@
-# En el módulo staff.py
 
 class Staff:
     def __init__(self, name, age, position, salary):
@@ -8,10 +7,10 @@ class Staff:
         self.salary = salary
 
     def work(self):
-        return f"{self.name} está trabajando en su puesto de {self.position}."
+        return f"{self.name} is working on the position as a {self.position}."
 
     def rest(self):
-        return f"{self.name} está descansando."
+        return f"{self.name} is resting ."
 
     def __str__(self):
-        return f"Nombre: {self.name} Puesto: {self.position}"
+        return f"Name: {self.name} Position: {self.position}"

@@ -1,4 +1,5 @@
-# En el módulo zoo.py
+
+import event as ev
 
 class Zoo:
     def __init__(self, name, location, capacity):
@@ -11,33 +12,46 @@ class Zoo:
 
     def add_exhibition(self, exhibition):
         self.exhibitions.append(exhibition)
-        print(f"Se ha agregado la exhibición '{exhibition.name}' al zoológico.")
+        print(f"Exhibition '{exhibition}' has been added to the zoo.")
+        
+    def delete_exhibition(self, exhibition):
+        respuesta = ev.alert_message("If you remove an exhibit\nthe animals will also be removed\nare you sure about this action?")
+        if respuesta:
+            self.exhibitions.remove(exhibition)
+    
+    def list_all_animals(self):
+        print("Animals in the zoo:")
+        for exhibition in self.exhibitions:
+            print(f"Animals in the '{exhibition.nombre}' exhibition:")
+            exhibition.list_animals()
 
     def add_staff(self, employee):
         self.staff.append(employee)
-        print(f"{employee.name} ha sido agregado al personal del zoológico.")
+        print(f"Employee '{employee}' has been added to the zoo.")
 
     def add_visitor(self, visitor):
         self.visitors.append(visitor)
-        print(f"{visitor.name} ha ingresado al zoológico.")
+        print("Visitor ", visitor, " has been added to the zoo.")
 
     def list_exhibitions(self):
-        print("Exhibiciones en el zoológico:")
+        print("Exhibitions in the zoo:")
         for exhibition in self.exhibitions:
             print(f"- {exhibition.name} ({exhibition.theme})")
 
     def list_staff(self):
-        print("Personal del zoológico:")
+        print("Zoo staff:")
         for employee in self.staff:
             print(f"- {employee.name} ({employee.position})")
 
     def list_visitors(self):
-        print("Visitantes en el zoológico:")
+        print("Visitors in the zoo:")
         for visitor in self.visitors:
             print(f"- {visitor.name}")
+      
+    def find_exhibition_by_name(self, name):
+        for exhibition in self.exhibitions:
+            if exhibition.compareTo(name):
+                return exhibition
+        return None
+        
 
-    def interact_with_animals(self):
-        print("Los visitantes están interactuando con los animales:")
-        for exhibition in self.exhibiciones:
-            for animal in exhibition.anmals:
-                print(f"- {animal.name} ({animal.species}) en la exhibición '{exhibition.name}'")

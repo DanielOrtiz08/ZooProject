@@ -1,33 +1,35 @@
 from zoo.zoo import Zoo
 from zoo.exhibition import Exhibition
-from zoo.animal import Animal
 from zoo.animal.mammal import Mammal
 from zoo.animal.bird import Bird
 from zoo.animal.reptile import Reptile
 from zoo.animal.fish import Fish
 from zoo.staff import Staff
 from zoo.visitor import Visitor
+import msvcrt
+import zoo.animal.texting_animal as ta
 
 # Función para crear un zoológico de muestra con exhibiciones y animales
-def crear_zoologico():
+def create_zoo():
     # Crear exhibiciones
     jungle_exhibit = Exhibition("junglelandia", "Exhibición de Selva", "Ubicación 1")
     savannah_exhibit = Exhibition("Sabana Africana", "Exhibición de Sabana", "Ubicación 2")
     acoustic_exhition = Exhibition("the lake", "exhibición acuatica", "Ubicacion 3")
 
     # Crear animales
-    tigre = Mammal("Tiger", 5, "Felino", "Rayado")
-    leon = Mammal("Simba", 6, "Felino", "Amarillo")
-    loro = Bird("Loro", 2, "pajaro", "Verde")
-    serpiente = Reptile("Serpiente", 4, "serpiente", "Escamosa")
-    pez_payaso = Fish("Nemo", 1, "Pez payaso", "Aleta Corta")
+    #self, name, age, species, exhibition, fur
+    tigre = Mammal("Tiger", 5, "Felino", savannah_exhibit, "Rayado")
+    leon = Mammal("Simba", 6, "Felino", savannah_exhibit, "Amarillo")
+    loro = Bird("Loro", 2, "Pajaro", jungle_exhibit, "Verde")
+    serpiente = Reptile("Snake", 4, "Serpiente", jungle_exhibit, "Escamosa")
+    pez_payaso = Fish("Nemo", 1, "Fish", acoustic_exhition, "Aleta Corta")
 
     # Agregar animales a exhibiciones
     jungle_exhibit.add_animal(tigre)
     jungle_exhibit.add_animal(loro)
-    savannah_exhibit.agregar_animal(leon)
+    savannah_exhibit.add_animal(leon)
     savannah_exhibit.add_animal(serpiente)
-    acoustic_exhition.agregar_animal(pez_payaso)
+    acoustic_exhition.add_animal(pez_payaso)
 
     # Crear personal
     tiger_keeper = Staff("Julano", 28, "Cuidador de tigres", 2500)
@@ -54,99 +56,64 @@ def crear_zoologico():
     return zoológico
 
 # Función para mostrar el menú principal
-def menu_principal():
-    print("Bienvenido al Zoológico ", zoológico.name)
+def main_manu():
+    print("Welcome to the Zoo ", zoológico.name)
     while True:
-        print("\nOpciones:")
-        print("1. Agregar Exhibición")
-        print("2. Listar Exhibiciones")
-        print("3. Agregar Animal en una Exhibición")
-        print("4. Listar Animales en una Exhibición")
-        print("5. Agregar Empleado al Zoológico")
-        print("6. Listar Personal del Zoológico")
-        print("7. Agregar Visitante al Zoológico")
-        print("8. Listar Visitantes del Zoológico")
-        print("9. Salir")
+        print("\nOptions:")
+        print("1. Add Exhibition")
+        print("2. List Exhibitions")
+        print("3. Go to the animals")
+        print("4. Add Employee to the Zoo")
+        print("5. List Zoo Staff")
+        print("6. Add Visitor to the Zoo")
+        print("7. Lis Visitor in the Zoo")
+        print("8. Exit")
 
-        opcion = input("Seleccione una opción: ")
+        opcion = input("Select an option: ")
 
         if opcion == "1":
             add_exhibition()
         elif opcion == "2":
             list_exhibitions()
         elif opcion == "3":
-            add_animal()
+            texting_animal()
         elif opcion == "4":
-            list_animals_exhibition()
-        elif opcion == "5":
             add_employee()
-        elif opcion == "6":
+        elif opcion == "5":
             list_staff_zoo()
-        elif opcion == "7":
+        elif opcion == "6":
             add_visitor()
-        elif opcion == "8":
+        elif opcion == "7":
             list_visitor_zoo()
-        elif opcion == "9":
-            print("Gracias por visitar el Zoológico. ¡Hasta luego!")
+        elif opcion == "8":
+            print("Thanks for inspecting the Zoo. ¡See You Later!")
             break
         else:
-            print("Opción no válida. Por favor, seleccione una opción válida.")
+            print("Invalid option. Please, selct a valid option.")
+        
+        msvcrt.getch()
 
 
 # Function to add an exhibition
-def add_exhibition(zoo):
-    print("Agregando nueva exhibicion:")
+def add_exhibition():
+    print("Adding a new exhibition:")
     name = input("Enter the exhibition name: ")
     theme = input("Enter the exhibition theme: ")
     location = input("Enter the exhibition location: ")
     
     new_exhibition = Exhibition(name, theme, location)
-    zoo.add_exhibition(new_exhibition)
-    print(f"Exhibition '{name}' has been added to the zoo.")
+    zoológico.add_exhibition(new_exhibition)
 
 # Function to list exhibitions
-def list_exhibitions(zoo):
+def list_exhibitions():
     print("Exhibitions in the zoo:")
-    zoo.list_exhibitions()
+    zoológico.list_exhibitions()
 
-# Function to add an animal to an exhibition
-def add_animal(zoo):
-    print("Adding an animal to an exhibition:")
-    animal_name = input("Enter the animal name: ")
-    animal_age = int(input("Enter the animal age: "))
-    animal_species = input("Enter the animal species: ")
-
-    print("Available exhibitions:")
-    zoo.list_exhibitions()
-    exhibition_name = input("Enter the name of the exhibition to add the animal: ")
-    
-    # Find the exhibition by name
-    exhibition = zoo.find_exhibition_by_name(exhibition_name)
-
-    if exhibition:
-        new_animal = Animal(animal_name, animal_age, animal_species)
-        exhibition.add_animal(new_animal)
-        print(f"{animal_name} has been added to the exhibition '{exhibition_name}'.")
-    else:
-        print(f"No exhibition found with the name '{exhibition_name}'.")
-
-# Function to list animals in an exhibition
-def list_animals_exhibition(zoo):
-    print("Available exhibitions:")
-    zoo.list_exhibitions()
-    exhibition_name = input("Enter the name of the exhibition: ")
-    
-    # Find the exhibition by name
-    exhibition = zoo.find_exhibition_by_name(exhibition_name)
-
-    if exhibition:
-        print(f"Animals in the exhibition '{exhibition_name}':")
-        exhibition.list_animals()
-    else:
-        print(f"No exhibition found with the name '{exhibition_name}'.")
+def texting_animal():
+    ta.add_animal(zoológico)
 
 # Function to add an employee
-def add_employee(zoo):
+def add_employee():
     print("Adding a new employee:")
     employee_name = input("Enter the employee name: ")
     employee_age = int(input("Enter the employee age: "))
@@ -154,32 +121,30 @@ def add_employee(zoo):
     employee_salary = float(input("Enter the employee salary: "))
     
     new_employee = Staff(employee_name, employee_age, employee_position, employee_salary)
-    zoo.add_personal(new_employee)
-    print(f"Employee '{employee_name}' has been added to the zoo.")
+    zoológico.add_staff(new_employee)
 
 # Function to list zoo staff
-def list_staff_zoo(zoo):
+def list_staff_zoo():
     print("Zoo staff:")
-    zoo.list_staff()
+    zoológico.list_staff()
 
 # Function to add a visitor
-def add_visitor(zoo):
+def add_visitor():
     print("Adding a new visitor:")
     visitor_name = input("Enter the visitor name: ")
     visitor_age = int(input("Enter the visitor age: "))
     visitor_ticket = input("Enter the visitor ticket number: ")
     
     new_visitor = Visitor(visitor_name, visitor_age, visitor_ticket)
-    zoo.add_visitor(new_visitor)
-    print(f"Visitor '{visitor_name}' has been added to the zoo.")
+    zoológico.add_visitor(new_visitor)
 
 # Function to list zoo visitors
-def list_visitor_zoo(zoo):
+def list_visitor_zoo():
     print("Zoo visitors:")
-    zoo.list_visitors()
+    zoológico.list_visitors()
 
 
 # Función principal que llama al menú principal
 if __name__ == "__main__":
-    zoológico = crear_zoologico()
-    menu_principal()
+    zoológico = create_zoo()
+    main_manu()

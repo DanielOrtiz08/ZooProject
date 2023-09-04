@@ -1,17 +1,24 @@
-# En el módulo pez.py
 
-from .animal import Animal  # Importar la clase base Animal
+from .animal_group import AnimalGroup  # Importar la clase base Animal
 
-class Fish(Animal):
-    def init(self, name, age, species, fin_type):
-        super().init(name, age, species)
+class Fish(AnimalGroup):
+    def __init__(self, name, age, type, exhibition, fin_type):
+        super().__init__(name, age, type, exhibition)
         self.fin_type = fin_type  # Atributo específico de los peces
+        self.specie = "fish"
+        
+    def eat(self):
+        return f"{self.name} eats in the water"
+
+    def sleep(self):
+        return f"the fish {self.name} is not sleeping"
 
     def make_sound(self):
-        return f"{self.name} está nadando en silencio."
+        return f"{self.name} is swimming silently."
 
     def swim(self):
-        return f"{self.name} está nadando con sus aletas {self.fin_type}."
+        return f"{self.name} is swimming with its {self.fin_type} fins."
 
     def __str__(self):
-        return f"{super().__str__()} - Tipo de Aleta: {self.fin_type}"
+        return f"{super().__str__()}, Fin type: {self.fin_type}"
+    
