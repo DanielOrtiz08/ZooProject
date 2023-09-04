@@ -56,7 +56,7 @@ def create_zoo():
     return zoológico
 
 # Función para mostrar el menú principal
-def main_manu():
+def main_manu(zoológico):
     print("Welcome to the Zoo ", zoológico.name)
     while True:
         print("\nOptions:")
@@ -66,25 +66,25 @@ def main_manu():
         print("4. Add Employee to the Zoo")
         print("5. List Zoo Staff")
         print("6. Add Visitor to the Zoo")
-        print("7. Lis Visitor in the Zoo")
+        print("7. List Visitor in the Zoo")
         print("8. Exit")
 
-        opcion = input("Select an option: ")
+        opcion = input("\nSelect an option: ")
 
         if opcion == "1":
-            add_exhibition()
+            add_exhibition(zoológico)
         elif opcion == "2":
-            list_exhibitions()
+            list_exhibitions(zoológico)
         elif opcion == "3":
-            texting_animal()
+            texting_animal(zoológico)
         elif opcion == "4":
-            add_employee()
+            add_employee(zoológico)
         elif opcion == "5":
-            list_staff_zoo()
+            list_staff_zoo(zoológico)
         elif opcion == "6":
-            add_visitor()
+            add_visitor(zoológico)
         elif opcion == "7":
-            list_visitor_zoo()
+            list_visitor_zoo(zoológico)
         elif opcion == "8":
             print("Thanks for inspecting the Zoo. ¡See You Later!")
             break
@@ -95,26 +95,27 @@ def main_manu():
 
 
 # Function to add an exhibition
-def add_exhibition():
-    print("Adding a new exhibition:")
+def add_exhibition(zoológico):
+    print("\nAdding a new exhibition:")
     name = input("Enter the exhibition name: ")
     theme = input("Enter the exhibition theme: ")
     location = input("Enter the exhibition location: ")
     
     new_exhibition = Exhibition(name, theme, location)
     zoológico.add_exhibition(new_exhibition)
+    return new_exhibition
 
 # Function to list exhibitions
-def list_exhibitions():
-    print("Exhibitions in the zoo:")
+def list_exhibitions(zoológico):
+    print("\nExhibitions in the zoo:")
     zoológico.list_exhibitions()
 
-def texting_animal():
-    ta.add_animal(zoológico)
+def texting_animal(zoológico):
+    ta.menu_animal(zoológico)
 
 # Function to add an employee
-def add_employee():
-    print("Adding a new employee:")
+def add_employee(zoológico):
+    print("\nAdding a new employee:")
     employee_name = input("Enter the employee name: ")
     employee_age = int(input("Enter the employee age: "))
     employee_position = input("Enter the employee position: ")
@@ -124,13 +125,13 @@ def add_employee():
     zoológico.add_staff(new_employee)
 
 # Function to list zoo staff
-def list_staff_zoo():
-    print("Zoo staff:")
+def list_staff_zoo(zoológico):
+    print("\nZoo staff:")
     zoológico.list_staff()
 
 # Function to add a visitor
-def add_visitor():
-    print("Adding a new visitor:")
+def add_visitor(zoológico):
+    print("\nAdding a new visitor:")
     visitor_name = input("Enter the visitor name: ")
     visitor_age = int(input("Enter the visitor age: "))
     visitor_ticket = input("Enter the visitor ticket number: ")
@@ -139,12 +140,10 @@ def add_visitor():
     zoológico.add_visitor(new_visitor)
 
 # Function to list zoo visitors
-def list_visitor_zoo():
-    print("Zoo visitors:")
+def list_visitor_zoo(zoológico):
+    print("\nZoo visitors:")
     zoológico.list_visitors()
 
 
-# Función principal que llama al menú principal
 if __name__ == "__main__":
-    zoológico = create_zoo()
-    main_manu()
+    main_manu(create_zoo())

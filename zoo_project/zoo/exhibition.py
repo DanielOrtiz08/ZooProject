@@ -12,9 +12,11 @@ class Exhibition:
         print(f"{animal.name} has been added to the exhibition '{self.name}'.")
 
     def list_animals(self):
+        i = 1
         print(f"Animals in the exhibition '{self.name}':")
         for animal in self.animals:
-            print(f"{animal.str}")
+            print(f"  {i}. {animal}")
+            i = i+1
             
     def compareTo(self, name):
         return self.name == name

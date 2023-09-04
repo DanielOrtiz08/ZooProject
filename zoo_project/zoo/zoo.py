@@ -21,9 +21,11 @@ class Zoo:
     
     def list_all_animals(self):
         print("Animals in the zoo:")
+        i = 1
         for exhibition in self.exhibitions:
-            print(f"Animals in the '{exhibition.nombre}' exhibition:")
+            print(f"{i}). Animals in the '{exhibition.name}' exhibition:")
             exhibition.list_animals()
+            i = i+1        
 
     def add_staff(self, employee):
         self.staff.append(employee)
